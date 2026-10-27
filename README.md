@@ -81,9 +81,21 @@ npm run preview
 
 ### 3. Comandos de Calidad y Validación Adicionales
 
-- **Validar calidad de código con el Linter:**
+- **Validar calidad de código con ESLint:**
   ```bash
   npm run lint
+  ```
+- **Corregir automáticamente problemas de linter:**
+  ```bash
+  npm run lint:fix
+  ```
+- **Formatear el código con Prettier:**
+  ```bash
+  npm run format
+  ```
+- **Verificar formato sin modificar archivos:**
+  ```bash
+  npm run format:check
   ```
 - **Validar integridad del banco de preguntas (esquema, 4 opciones, balance y fuentes):**
   ```bash
@@ -114,11 +126,12 @@ graph TD
 - **Decisión**: La aplicación se concibió como un cliente autónomo en React sin backend, alojando la lógica del juego, puntuación y banco de preguntas en el cliente.
 - **Razón**: Permite una ejecución inmediata, portabilidad total para evaluación y despliegue estático (GitHub Pages, Vercel, Netlify) sin costos de infraestructura ni dependencias de conexión a bases de datos remotas.
 
-### 2. Core Tecnológico: React 19 + Vite + Tailwind CSS v4
+### 2. Core Tecnológico: React 19 + Vite + Tailwind CSS v4 + ESLint & Prettier
 
 - **React 19**: Aprovecha la arquitectura basada en componentes funcionales y hooks para un desacoplamiento limpio de la lógica del estado (`useState`, `useCallback`, `useRef`, `useEffect`).
 - **Vite 8**: Servidor de desarrollo ultrarrápido impulsado por ES Modules nativos y compilación de producción optimizada con Rollup en menos de 300 ms.
 - **Tailwind CSS v4**: Integrado mediante el plugin oficial `@tailwindcss/vite`, adoptando la nueva directiva `@import "tailwindcss";` y prescindiendo de archivos de configuración externos como `tailwind.config.js`.
+- **ESLint 9 & Prettier**: Configuración de ESLint en formato plano (_Flat Config_) con soporte para React y React Hooks, complementada con Prettier para asegurar coherencia y estilo uniforme en todo el código.
 
 ### 3. Sintetizador de Sonido Nativo con Web Audio API
 
