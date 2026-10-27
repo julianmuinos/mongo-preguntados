@@ -35,8 +35,12 @@ const getStoredBoolean = (key, fallback) => {
 
 export default function App() {
   // Global Persisted Settings
-  const [highScore, setHighScore] = useState(() => getStoredNumber(STORAGE_KEYS.HIGH_SCORE, 0));
-  const [soundEnabled, setSoundEnabled] = useState(() => getStoredBoolean(STORAGE_KEYS.SOUND, false));
+  const [highScore, setHighScore] = useState(() =>
+    getStoredNumber(STORAGE_KEYS.HIGH_SCORE, 0)
+  );
+  const [soundEnabled, setSoundEnabled] = useState(() =>
+    getStoredBoolean(STORAGE_KEYS.SOUND, false)
+  );
   const [showRules, setShowRules] = useState(false);
 
   // Sync sound manager with state
@@ -116,7 +120,9 @@ export default function App() {
   // Question Selector with repetition avoidance (CL-1)
   const pickQuestionForCategory = useCallback((category) => {
     const allForCat = QUESTIONS.filter((q) => q.category === category.id);
-    let available = allForCat.filter((q) => !usedQuestionIdsRef.current.has(q.id));
+    let available = allForCat.filter(
+      (q) => !usedQuestionIdsRef.current.has(q.id)
+    );
 
     // If all questions for this category have been used, reset pool without repeating the very last one
     if (available.length === 0) {
@@ -135,16 +141,19 @@ export default function App() {
   }, []);
 
   // Launch Question Card
-  const launchQuestion = useCallback((category, forCrown = false) => {
-    const q = pickQuestionForCategory(category);
-    setCurrentCategory(category);
-    setCurrentQuestion(q);
-    setIsCrownQuestion(forCrown);
-    setHiddenOptionIndices([]);
-    setSelectedOptionIndex(null);
-    setIsAnswered(false);
-    setGamePhase('question');
-  }, [pickQuestionForCategory]);
+  const launchQuestion = useCallback(
+    (category, forCrown = false) => {
+      const q = pickQuestionForCategory(category);
+      setCurrentCategory(category);
+      setCurrentQuestion(q);
+      setIsCrownQuestion(forCrown);
+      setHiddenOptionIndices([]);
+      setSelectedOptionIndex(null);
+      setIsAnswered(false);
+      setGamePhase('question');
+    },
+    [pickQuestionForCategory]
+  );
 
   // When wheel finishes spinning (RF-6, RF-13)
   const handleSpinEnd = (selectedCategory) => {
@@ -158,7 +167,9 @@ export default function App() {
 
   // Crown Picker Trigger (RF-13, CL-7)
   const handlePromptCrownPicker = () => {
-    const missingCrownIds = CATEGORIES.map((c) => c.id).filter((id) => !crowns.includes(id));
+    const missingCrownIds = CATEGORIES.map((c) => c.id).filter(
+      (id) => !crowns.includes(id)
+    );
     if (missingCrownIds.length === 1) {
       // Auto-pick the last remaining crown (CL-7)
       const lastCat = CATEGORIES.find((c) => c.id === missingCrownIds[0]);
@@ -192,77 +203,92 @@ export default function App() {
   };
 
   // Option Selected by Player (RF-8, RF-9, RF-10)
-  const handleSelectOption = useCallback((optionIndex, secondsLeft) => {
-    if (isAnswered) return;
-    setIsAnswered(true);
-    setSelectedOptionIndex(optionIndex);
+  const handleSelectOption = useCallback(
+    (optionIndex, secondsLeft) => {
+      if (isAnswered) return;
+      setIsAnswered(true);
+      setSelectedOptionIndex(optionIndex);
 
-    const isCorrect = optionIndex === currentQuestion.correctIndex;
-    recordStat(currentCategory.id, isCorrect);
+      const isCorrect = optionIndex === currentQuestion.correctIndex;
+      recordStat(currentCategory.id, isCorrect);
 
-    if (isCorrect) {
-      // Calculate score: easy=100, med=200, adv=300 + 5 * seconds
-      const diffMultiplier = { facil: 100, medio: 200, avanzado: 300 }[currentQuestion.difficulty] || 150;
-      const earned = diffMultiplier + secondsLeft * 5;
-      const newScore = score + earned;
-      setScore(newScore);
-      setPointsEarned(earned);
+      if (isCorrect) {
+        // Calculate score: easy=100, med=200, adv=300 + 5 * seconds
+        const diffMultiplier =
+          { facil: 100, medio: 200, avanzado: 300 }[
+            currentQuestion.difficulty
+          ] || 150;
+        const earned = diffMultiplier + secondsLeft * 5;
+        const newScore = score + earned;
+        setScore(newScore);
+        setPointsEarned(earned);
 
-      // Check high score (RF-25)
-      if (newScore > highScore) {
-        setHighScore(newScore);
-        setIsNewHighScore(true);
-        try {
-          localStorage.setItem(STORAGE_KEYS.HIGH_SCORE, String(newScore));
-        } catch {
-          // Ignore error
+        // Check high score (RF-25)
+        if (newScore > highScore) {
+          setHighScore(newScore);
+          setIsNewHighScore(true);
+          try {
+            localStorage.setItem(STORAGE_KEYS.HIGH_SCORE, String(newScore));
+          } catch {
+            // Ignore error
+          }
         }
-      }
 
-      // Check Crown Win (RF-14)
-      if (isCrownQuestion && !crowns.includes(currentCategory.id)) {
-        const newCrowns = [...crowns, currentCategory.id];
-        setCrowns(newCrowns);
-        setWonCrownInTurn(true);
-        soundManager.playCrown();
-        // Regain 1 life (max 3)
-        setLives((prev) => Math.min(3, prev + 1));
-        // Reset streak after winning crown
-        setStreak(0);
+        // Check Crown Win (RF-14)
+        if (isCrownQuestion && !crowns.includes(currentCategory.id)) {
+          const newCrowns = [...crowns, currentCategory.id];
+          setCrowns(newCrowns);
+          setWonCrownInTurn(true);
+          soundManager.playCrown();
+          // Regain 1 life (max 3)
+          setLives((prev) => Math.min(3, prev + 1));
+          // Reset streak after winning crown
+          setStreak(0);
 
-        // Check Victory Condition (RF-21, CL-12)
-        if (newCrowns.length === CATEGORIES.length) {
-          setTimeout(() => {
-            setFeedbackStatus('correct');
-            setGamePhase('feedback');
-          }, 600);
-          return;
+          // Check Victory Condition (RF-21, CL-12)
+          if (newCrowns.length === CATEGORIES.length) {
+            setTimeout(() => {
+              setFeedbackStatus('correct');
+              setGamePhase('feedback');
+            }, 600);
+            return;
+          }
+        } else {
+          setWonCrownInTurn(false);
+          soundManager.playCorrect();
+          setStreak((prev) => prev + 1);
         }
+
+        setTimeout(() => {
+          setFeedbackStatus('correct');
+          setGamePhase('feedback');
+        }, 700);
       } else {
+        // Wrong answer (RF-10)
+        soundManager.playWrong();
+        setPointsEarned(0);
         setWonCrownInTurn(false);
-        soundManager.playCorrect();
-        setStreak((prev) => prev + 1);
+        setStreak(0);
+        const newLives = lives - 1;
+        setLives(newLives);
+
+        setTimeout(() => {
+          setFeedbackStatus('wrong');
+          setGamePhase('feedback');
+        }, 700);
       }
-
-      setTimeout(() => {
-        setFeedbackStatus('correct');
-        setGamePhase('feedback');
-      }, 700);
-    } else {
-      // Wrong answer (RF-10)
-      soundManager.playWrong();
-      setPointsEarned(0);
-      setWonCrownInTurn(false);
-      setStreak(0);
-      const newLives = lives - 1;
-      setLives(newLives);
-
-      setTimeout(() => {
-        setFeedbackStatus('wrong');
-        setGamePhase('feedback');
-      }, 700);
-    }
-  }, [isAnswered, currentQuestion, currentCategory, score, highScore, isCrownQuestion, crowns, lives]);
+    },
+    [
+      isAnswered,
+      currentQuestion,
+      currentCategory,
+      score,
+      highScore,
+      isCrownQuestion,
+      crowns,
+      lives,
+    ]
+  );
 
   // Timeout Event (RF-11, CL-2)
   const handleTimeout = useCallback(() => {
@@ -286,10 +312,13 @@ export default function App() {
 
   // Power-up: 50/50 (RF-17, CL-4, CL-5)
   const handleUseFiftyFifty = () => {
-    if (!powerUps.fiftyFifty || isAnswered || hiddenOptionIndices.length > 0) return;
+    if (!powerUps.fiftyFifty || isAnswered || hiddenOptionIndices.length > 0)
+      return;
     setPowerUps((prev) => ({ ...prev, fiftyFifty: false }));
 
-    const wrongIndices = [0, 1, 2, 3].filter((idx) => idx !== currentQuestion.correctIndex);
+    const wrongIndices = [0, 1, 2, 3].filter(
+      (idx) => idx !== currentQuestion.correctIndex
+    );
     // Shuffle and pick 2 to hide
     const shuffledWrong = wrongIndices.sort(() => 0.5 - Math.random());
     const toHide = shuffledWrong.slice(0, 2);
@@ -368,14 +397,18 @@ export default function App() {
               Mongo<span className="text-emerald-400">Preguntados</span>
             </h1>
             <p className="text-sm sm:text-base text-slate-400 max-w-md mx-auto mb-8 leading-relaxed">
-              El juego de trivia oficial basado en la guía teórica de <strong>MongoDB y Mongoose</strong>. ¿Podrás conquistar las 6 coronas?
+              El juego de trivia oficial basado en la guía teórica de{' '}
+              <strong>MongoDB y Mongoose</strong>. ¿Podrás conquistar las 6
+              coronas?
             </p>
 
             {/* High Score Badge */}
             {highScore > 0 && (
               <div className="mb-8 px-5 py-2.5 rounded-2xl bg-slate-900/90 border border-slate-800 text-slate-300 text-xs font-bold inline-flex items-center gap-2">
                 <span>🏆 Récord Actual:</span>
-                <span className="text-emerald-400 font-black text-sm">{highScore} pts</span>
+                <span className="text-emerald-400 font-black text-sm">
+                  {highScore} pts
+                </span>
               </div>
             )}
 
@@ -416,7 +449,9 @@ export default function App() {
             {streak >= 3 && crowns.length < CATEGORIES.length && (
               <div className="mb-4 px-4 py-2 rounded-2xl bg-amber-500/20 border border-amber-500/40 text-amber-300 font-extrabold text-xs flex items-center gap-2 animate-bounce">
                 <span>👑</span>
-                <span>¡Racha desbloqueada! Girando por una oportunidad de Corona.</span>
+                <span>
+                  ¡Racha desbloqueada! Girando por una oportunidad de Corona.
+                </span>
               </div>
             )}
 
@@ -433,6 +468,7 @@ export default function App() {
         {gamePhase === 'question' && currentQuestion && (
           <div className="flex-1 flex flex-col items-center justify-center py-6 animate-fadeIn">
             <QuestionCard
+              key={currentQuestion.id}
               question={currentQuestion}
               category={currentCategory}
               isCrownQuestion={isCrownQuestion}
@@ -452,7 +488,9 @@ export default function App() {
         {/* Crown Picker Modal (RF-13, CL-7) */}
         {gamePhase === 'crown_picker' && (
           <CrownPickerModal
-            availableCrownIds={CATEGORIES.map((c) => c.id).filter((id) => !crowns.includes(id))}
+            availableCrownIds={CATEGORIES.map((c) => c.id).filter(
+              (id) => !crowns.includes(id)
+            )}
             onSelectCategory={handleSelectCrownCategory}
           />
         )}
@@ -488,7 +526,8 @@ export default function App() {
 
       {/* Footer */}
       <footer className="relative z-10 w-full py-3 text-center text-[11px] text-slate-500 border-t border-slate-900 bg-slate-950/40">
-        ITBA · Full Stack Developer · Basado en el Manual de MongoDB v9.0 y Mongoose v9.x
+        ITBA · Full Stack Developer · Basado en el Manual de MongoDB v9.0 y
+        Mongoose v9.x
       </footer>
     </div>
   );

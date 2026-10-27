@@ -17,16 +17,20 @@ export default function QuestionCard({
 }) {
   const [secondsLeft, setSecondsLeft] = useState(20);
   const totalTime = useRef(20);
-  const startTimeRef = useRef(Date.now());
+  const startTimeRef = useRef(null);
   const timerIdRef = useRef(null);
   const hasTimedOutRef = useRef(false);
+  const onTimeoutRef = useRef(onTimeout);
 
-  // Initialize or reset timer when question changes
   useEffect(() => {
-    setSecondsLeft(20);
-    totalTime.current = 20;
+    onTimeoutRef.current = onTimeout;
+  }, [onTimeout]);
+
+  // Initialize and run countdown timer
+  useEffect(() => {
     startTimeRef.current = Date.now();
     hasTimedOutRef.current = false;
+    totalTime.current = 20;
 
     if (timerIdRef.current) clearInterval(timerIdRef.current);
 
@@ -50,14 +54,14 @@ export default function QuestionCard({
       if (remaining === 0 && !hasTimedOutRef.current) {
         hasTimedOutRef.current = true;
         clearInterval(timerIdRef.current);
-        onTimeout();
+        onTimeoutRef.current?.();
       }
     }, 250);
 
     return () => {
       if (timerIdRef.current) clearInterval(timerIdRef.current);
     };
-  }, [question.id, isAnswered]);
+  }, [isAnswered]);
 
   // Handle +15s powerup
   const handleExtraTime = () => {
@@ -72,7 +76,7 @@ export default function QuestionCard({
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (isAnswered) return;
-      const keyMap = { '1': 0, '2': 1, '3': 2, '4': 3 };
+      const keyMap = { 1: 0, 2: 1, 3: 2, 4: 3 };
       if (e.key in keyMap) {
         const idx = keyMap[e.key];
         if (!hiddenOptionIndices.includes(idx)) {
@@ -118,7 +122,9 @@ export default function QuestionCard({
         {/* Circular / Linear Countdown Timer (RF-7) */}
         <div className="flex items-center gap-2 self-end sm:self-auto">
           <div className="flex items-center gap-2 bg-slate-900/90 px-3 py-1.5 rounded-full border border-slate-800">
-            <span className={`text-xs ${isUrgent ? 'animate-bounce text-red-400' : 'text-slate-400'}`}>
+            <span
+              className={`text-xs ${isUrgent ? 'animate-bounce text-red-400' : 'text-slate-400'}`}
+            >
               ⏱️
             </span>
             <span
@@ -136,7 +142,9 @@ export default function QuestionCard({
       <div className="w-full h-1.5 bg-slate-800/80 rounded-full mt-3 overflow-hidden">
         <div
           className={`h-full transition-all duration-300 rounded-full ${
-            isUrgent ? 'bg-red-500 shadow-md shadow-red-500/50' : 'bg-emerald-400 shadow-md shadow-emerald-400/50'
+            isUrgent
+              ? 'bg-red-500 shadow-md shadow-red-500/50'
+              : 'bg-emerald-400 shadow-md shadow-emerald-400/50'
           }`}
           style={{ width: `${progressPct}%` }}
         />
@@ -182,7 +190,8 @@ export default function QuestionCard({
               btnStyle =
                 'bg-rose-950/80 border-rose-500/80 text-rose-200 font-bold shadow-lg shadow-rose-900/30';
             } else {
-              btnStyle = 'bg-slate-900/40 border-slate-900 text-slate-500 opacity-40';
+              btnStyle =
+                'bg-slate-900/40 border-slate-900 text-slate-500 opacity-40';
             }
           }
 
@@ -196,13 +205,21 @@ export default function QuestionCard({
               <span className="w-7 h-7 rounded-lg bg-slate-800/80 border border-slate-700/60 flex items-center justify-center text-xs font-mono font-bold text-slate-300 shrink-0">
                 {idx + 1}
               </span>
-              <span className="text-sm sm:text-base font-medium flex-1">{opt}</span>
+              <span className="text-sm sm:text-base font-medium flex-1">
+                {opt}
+              </span>
               {isAnswered && idx === question.correctIndex && (
-                <span className="text-emerald-400 font-extrabold text-lg">✓</span>
+                <span className="text-emerald-400 font-extrabold text-lg">
+                  ✓
+                </span>
               )}
-              {isAnswered && idx === selectedOptionIndex && idx !== question.correctIndex && (
-                <span className="text-rose-400 font-extrabold text-lg">✕</span>
-              )}
+              {isAnswered &&
+                idx === selectedOptionIndex &&
+                idx !== question.correctIndex && (
+                  <span className="text-rose-400 font-extrabold text-lg">
+                    ✕
+                  </span>
+                )}
             </button>
           );
         })}
@@ -218,10 +235,20 @@ export default function QuestionCard({
           {/* 50/50 */}
           <button
             onClick={onUseFiftyFifty}
-            disabled={!powerUps.fiftyFifty || isAnswered || hiddenOptionIndices.length > 0}
-            title={powerUps.fiftyFifty ? 'Descartar 2 opciones incorrectas' : 'Comodín 50/50 ya utilizado'}
+            disabled={
+              !powerUps.fiftyFifty ||
+              isAnswered ||
+              hiddenOptionIndices.length > 0
+            }
+            title={
+              powerUps.fiftyFifty
+                ? 'Descartar 2 opciones incorrectas'
+                : 'Comodín 50/50 ya utilizado'
+            }
             className={`px-3 py-1.5 rounded-xl border text-xs font-black flex items-center gap-1.5 transition-all cursor-pointer ${
-              powerUps.fiftyFifty && !isAnswered && hiddenOptionIndices.length === 0
+              powerUps.fiftyFifty &&
+              !isAnswered &&
+              hiddenOptionIndices.length === 0
                 ? 'bg-purple-950/60 border-purple-500/40 text-purple-300 hover:bg-purple-900/60 hover:scale-105 active:scale-95'
                 : 'bg-slate-900/60 border-slate-800 text-slate-600 cursor-not-allowed opacity-50'
             }`}
@@ -234,7 +261,11 @@ export default function QuestionCard({
           <button
             onClick={handleExtraTime}
             disabled={!powerUps.extraTime || isAnswered}
-            title={powerUps.extraTime ? 'Sumar 15 segundos al temporizador' : 'Comodín +15s ya utilizado'}
+            title={
+              powerUps.extraTime
+                ? 'Sumar 15 segundos al temporizador'
+                : 'Comodín +15s ya utilizado'
+            }
             className={`px-3 py-1.5 rounded-xl border text-xs font-black flex items-center gap-1.5 transition-all cursor-pointer ${
               powerUps.extraTime && !isAnswered
                 ? 'bg-blue-950/60 border-blue-500/40 text-blue-300 hover:bg-blue-900/60 hover:scale-105 active:scale-95'
@@ -249,7 +280,11 @@ export default function QuestionCard({
           <button
             onClick={onUseSkip}
             disabled={!powerUps.skip || isAnswered}
-            title={powerUps.skip ? 'Pasar de pregunta sin penalización' : 'Comodín Pasar ya utilizado'}
+            title={
+              powerUps.skip
+                ? 'Pasar de pregunta sin penalización'
+                : 'Comodín Pasar ya utilizado'
+            }
             className={`px-3 py-1.5 rounded-xl border text-xs font-black flex items-center gap-1.5 transition-all cursor-pointer ${
               powerUps.skip && !isAnswered
                 ? 'bg-amber-950/60 border-amber-500/40 text-amber-300 hover:bg-amber-900/60 hover:scale-105 active:scale-95'

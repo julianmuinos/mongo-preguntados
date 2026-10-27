@@ -1,8 +1,13 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { CATEGORIES } from '../data/questions';
 import { soundManager } from '../utils/audio';
 
-export default function Wheel({ onSpinEnd, isSpinning, setIsSpinning, disabled }) {
+export default function Wheel({
+  onSpinEnd,
+  isSpinning,
+  setIsSpinning,
+  disabled,
+}) {
   const [rotation, setRotation] = useState(0);
   const audioIntervalRef = useRef(null);
   const wheelRef = useRef(null);
@@ -27,7 +32,7 @@ export default function Wheel({ onSpinEnd, isSpinning, setIsSpinning, disabled }
     return `M ${center} ${center} L ${x1} ${y1} A ${radius} ${radius} 0 0 1 ${x2} ${y2} Z`;
   };
 
-  const handleSpin = () => {
+  const handleSpin = useCallback(() => {
     if (isSpinning || disabled) return;
 
     setIsSpinning(true);
@@ -47,7 +52,8 @@ export default function Wheel({ onSpinEnd, isSpinning, setIsSpinning, disabled }
     if (extraRotation < 0) extraRotation += 360;
     // Add subtle jitter within +/- 15 deg so it doesn't always hit dead center
     const jitter = (Math.random() - 0.5) * 16;
-    const totalNewRotation = rotation + fullSpins * 360 + extraRotation + jitter;
+    const totalNewRotation =
+      rotation + fullSpins * 360 + extraRotation + jitter;
 
     setRotation(totalNewRotation);
 
@@ -69,19 +75,32 @@ export default function Wheel({ onSpinEnd, isSpinning, setIsSpinning, disabled }
       setIsSpinning(false);
       onSpinEnd(targetCategory);
     }, 4200);
-  };
+  }, [
+    isSpinning,
+    disabled,
+    numSlices,
+    anglePerSlice,
+    rotation,
+    setIsSpinning,
+    onSpinEnd,
+  ]);
 
   // Keyboard shortcut: Spacebar to spin (RF-4)
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.code === 'Space' && !isSpinning && !disabled && e.target.tagName !== 'BUTTON') {
+      if (
+        e.code === 'Space' &&
+        !isSpinning &&
+        !disabled &&
+        e.target.tagName !== 'BUTTON'
+      ) {
         e.preventDefault();
         handleSpin();
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isSpinning, disabled, rotation]);
+  }, [isSpinning, disabled, handleSpin]);
 
   return (
     <div className="relative flex flex-col items-center justify-center p-4">
@@ -117,19 +136,34 @@ export default function Wheel({ onSpinEnd, isSpinning, setIsSpinning, disabled }
               <stop offset="100%" stopColor="#0f172a" />
             </radialGradient>
             <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
-              <feDropShadow dx="0" dy="2" stdDeviation="3" floodColor="#000" floodOpacity="0.5" />
+              <feDropShadow
+                dx="0"
+                dy="2"
+                stdDeviation="3"
+                floodColor="#000"
+                floodOpacity="0.5"
+              />
             </filter>
           </defs>
 
           {/* Outer Ring */}
-          <circle cx={center} cy={center} r={radius + 8} fill="url(#rim-gradient)" stroke="#475569" strokeWidth="4" />
+          <circle
+            cx={center}
+            cy={center}
+            r={radius + 8}
+            fill="url(#rim-gradient)"
+            stroke="#475569"
+            strokeWidth="4"
+          />
 
           {/* Slices */}
           {CATEGORIES.map((cat, idx) => {
             const midAngle = idx * anglePerSlice + anglePerSlice / 2 - 90;
             const textDist = radius * 0.65;
-            const textX = center + textDist * Math.cos(midAngle * (Math.PI / 180));
-            const textY = center + textDist * Math.sin(midAngle * (Math.PI / 180));
+            const textX =
+              center + textDist * Math.cos(midAngle * (Math.PI / 180));
+            const textY =
+              center + textDist * Math.sin(midAngle * (Math.PI / 180));
 
             return (
               <g key={cat.id}>
@@ -143,7 +177,9 @@ export default function Wheel({ onSpinEnd, isSpinning, setIsSpinning, disabled }
                 />
 
                 {/* Content group rotated towards center */}
-                <g transform={`translate(${textX}, ${textY}) rotate(${midAngle + 90})`}>
+                <g
+                  transform={`translate(${textX}, ${textY}) rotate(${midAngle + 90})`}
+                >
                   <text
                     textAnchor="middle"
                     dominantBaseline="central"
@@ -169,7 +205,14 @@ export default function Wheel({ onSpinEnd, isSpinning, setIsSpinning, disabled }
           })}
 
           {/* Inner separator line rings */}
-          <circle cx={center} cy={center} r={radius * 0.32} fill="#0b0f19" stroke="#334155" strokeWidth="4" />
+          <circle
+            cx={center}
+            cy={center}
+            r={radius * 0.32}
+            fill="#0b0f19"
+            stroke="#334155"
+            strokeWidth="4"
+          />
         </svg>
 
         {/* Center Spin Button (Stationary / Overlay) */}
@@ -194,7 +237,11 @@ export default function Wheel({ onSpinEnd, isSpinning, setIsSpinning, disabled }
 
       {/* Helpful Hint */}
       <p className="mt-4 text-xs text-slate-400 font-medium text-center">
-        Presioná <kbd className="px-2 py-0.5 bg-slate-800 border border-slate-700 rounded text-slate-300 font-mono">Espacio</kbd> o hacé clic en el centro para girar
+        Presioná{' '}
+        <kbd className="px-2 py-0.5 bg-slate-800 border border-slate-700 rounded text-slate-300 font-mono">
+          Espacio
+        </kbd>{' '}
+        o hacé clic en el centro para girar
       </p>
     </div>
   );
