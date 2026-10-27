@@ -1,7 +1,8 @@
 # MongoPreguntados 🍃
 
 > **Juego interactivo de preguntas y respuestas estilo _Preguntados_ (_Trivia Crack_) sobre teoría y práctica de MongoDB & Mongoose.**  
-> Proyecto desarrollado para la **Clase 16** del programa **Full Stack Developer – ITBA**.
+> Proyecto desarrollado para la **Clase 16** del programa **Full Stack Developer – ITBA**.  
+> 🌐 **Demo en vivo:** [https://mongo-preguntados.vercel.app](https://mongo-preguntados.vercel.app)
 
 ---
 
