@@ -54,7 +54,10 @@ export default function Header({
       {/* Stats & Actions */}
       <div className="flex items-center gap-3 sm:gap-4">
         {/* Lives (RF-16) */}
-        <div className="flex items-center gap-1 bg-slate-900/80 px-2.5 py-1.5 rounded-xl border border-slate-800" title={`Vidas: ${lives}/3`}>
+        <div
+          className="flex items-center gap-1 bg-slate-900/80 px-2.5 py-1.5 rounded-xl border border-slate-800"
+          title={`Vidas: ${lives}/3`}
+        >
           {[1, 2, 3].map((val) => (
             <span
               key={val}
@@ -74,7 +77,9 @@ export default function Header({
         >
           <span className="text-amber-400 text-sm animate-pulse">🔥</span>
           <div className="flex flex-col">
-            <span className="text-xs font-black text-amber-300">{streak}/3</span>
+            <span className="text-xs font-black text-amber-300">
+              {streak}/3
+            </span>
           </div>
         </div>
 

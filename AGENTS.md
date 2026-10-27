@@ -2,26 +2,27 @@
 
 ## 1. Qué es el proyecto
 
-**MongoPreguntados** es una aplicación web interactiva inspirada en la dinámica clásica de *Preguntados* (Trivia Crack), diseñada para evaluar y reforzar conocimientos teóricos y prácticos sobre **MongoDB y Mongoose**.
+**MongoPreguntados** es una aplicación web interactiva inspirada en la dinámica clásica de _Preguntados_ (Trivia Crack), diseñada para evaluar y reforzar conocimientos teóricos y prácticos sobre **MongoDB y Mongoose**.
 
 > **Fuente única de verdad**: `Documento_MongoDB_y_Mongoose_NodeJS.pdf` (23 secciones; incluye todo el contenido de `Documento MongoDB y Mongoose.docx` más Mongoose). Toda pregunta debe poder justificarse con una sección de ese documento.
 >
 > **Especificación funcional**: ver [`spec.md`](./spec.md) (requisitos RF-x en notación EARS).
 
 ### Características Principales:
+
 - **Temática MongoDB + Mongoose**: Banco de preguntas clasificado en 6 categorías, una por cada sector de la ruleta:
-  1. 🟢 *Fundamentos* (§1–4): base orientada a documentos, BSON, `_id`/ObjectId, notación de puntos, 16 MiB / GridFS, colecciones vs tablas SQL, datos de muestra.
-  2. 🔵 *Node.js y Mongoose* (§5–9): driver oficial vs ODM, Schema / Model / Document, `mongoose.connect()`, connection string y `.env`, roles y menor privilegio, SchemaTypes y validaciones, CRUD (mongosh vs Mongoose) y operadores MQL.
-  3. 🟣 *Diseño y consultas* (§10–14): índices, embedding vs referencing con `populate()`, middleware pre/post, `.lean()`, aggregation pipeline, Atlas Search y Vector Search.
-  4. 🟠 *Funciones especiales* (§15–18): Time Series, Change Streams (`Model.watch()`), transacciones, seguridad y encriptación.
-  5. 🔴 *Producción* (§19–21): replica set, sharding / shard key, replicación vs sharding, checklist de rendimiento.
-  6. 🟡 *Herramientas y extras* (§22–23): Atlas, Compass, mongosh, docs de Mongoose, Charts, Community Edition, University, ruta de aprendizaje.
+  1. 🟢 _Fundamentos_ (§1–4): base orientada a documentos, BSON, `_id`/ObjectId, notación de puntos, 16 MiB / GridFS, colecciones vs tablas SQL, datos de muestra.
+  2. 🔵 _Node.js y Mongoose_ (§5–9): driver oficial vs ODM, Schema / Model / Document, `mongoose.connect()`, connection string y `.env`, roles y menor privilegio, SchemaTypes y validaciones, CRUD (mongosh vs Mongoose) y operadores MQL.
+  3. 🟣 _Diseño y consultas_ (§10–14): índices, embedding vs referencing con `populate()`, middleware pre/post, `.lean()`, aggregation pipeline, Atlas Search y Vector Search.
+  4. 🟠 _Funciones especiales_ (§15–18): Time Series, Change Streams (`Model.watch()`), transacciones, seguridad y encriptación.
+  5. 🔴 _Producción_ (§19–21): replica set, sharding / shard key, replicación vs sharding, checklist de rendimiento.
+  6. 🟡 _Herramientas y extras_ (§22–23): Atlas, Compass, mongosh, docs de Mongoose, Charts, Community Edition, University, ruta de aprendizaje.
 - **Mecánica estilo Preguntados**:
   - **Ruleta interactiva animada** con secciones temáticas identificadas por colores e íconos.
   - **Modo Corona / Duelo**: Posibilidad de jugar por una insignia/corona de categoría para completar el tablero.
   - **Temporizador dinámico** por pregunta (ej. 20 o 30 segundos) con alerta visual de tiempo restante.
   - **Feedback pedagógico inmediato**: Al responder (acierto o fallo), se muestra una explicación detallada con fragmentos de código o citas teóricas para consolidar el aprendizaje.
-  - **Power-ups / Comodines**: *50/50* (descarta 2 opciones erróneas), *Bomba de Tiempo* (+15 segundos), *Pase de pregunta*.
+  - **Power-ups / Comodines**: _50/50_ (descarta 2 opciones erróneas), _Bomba de Tiempo_ (+15 segundos), _Pase de pregunta_.
   - **Sistema de vidas y racha**: 3 vidas por partida; se recupera 1 vida al ganar una corona (máx. 3). Ver reglas completas en `spec.md`.
   - **Pantalla de Victoria / Estadísticas finales**: Resumen de rendimiento por categoría, porcentaje de aciertos y feedback global.
 - **Arquitectura de Software**:
@@ -34,13 +35,13 @@
 
 El proyecto está configurado con **Node.js**, **React** y **Vite**.
 
-| Comando | Acción |
-| :--- | :--- |
-| `npm install` | Instala las dependencias del proyecto. |
-| `npm run dev` | Inicia el servidor de desarrollo local de Vite (por defecto en `http://localhost:5173`). |
-| `npm run build` | Compila y optimiza el bundle de producción en el directorio `dist/`. |
-| `npm run preview` | Ejecuta un servidor local para previsualizar la compilación de producción. |
-| `npm run lint` | Ejecuta el linter (ESLint) para verificar calidad de código y buenas prácticas. |
+| Comando           | Acción                                                                                   |
+| :---------------- | :--------------------------------------------------------------------------------------- |
+| `npm install`     | Instala las dependencias del proyecto.                                                   |
+| `npm run dev`     | Inicia el servidor de desarrollo local de Vite (por defecto en `http://localhost:5173`). |
+| `npm run build`   | Compila y optimiza el bundle de producción en el directorio `dist/`.                     |
+| `npm run preview` | Ejecuta un servidor local para previsualizar la compilación de producción.               |
+| `npm run lint`    | Ejecuta el linter (ESLint) para verificar calidad de código y buenas prácticas.          |
 
 > **Nota para agentes**: Siempre verificar la compilación ejecutando `npm run build` antes de dar por concluida cualquier etapa o refactorización.
 
@@ -49,12 +50,13 @@ El proyecto está configurado con **Node.js**, **React** y **Vite**.
 ## 3. Estilo y Reglas de Desarrollo
 
 ### 3.1. Estética y Diseño Visual (Rich Aesthetics)
+
 - **Identidad visual moderna y temática**:
-  - Paleta de colores inspirada en el ecosistema MongoDB con estética *dark mode* premium:
+  - Paleta de colores inspirada en el ecosistema MongoDB con estética _dark mode_ premium:
     - Fondos: Deep Slate / Obsidian (`#0b0f19`, `#111827`, `#1f2937`).
     - Color Primario (MongoDB Emerald): `#00ED64` / `#00684A` / `#023430`.
     - Colores de categorías (Ruleta): Verde esmeralda, Violeta/Púrpura, Azul cyan, Naranja cálido, Fucsia neón, Amarillo ámbar.
-    - Textos: Alto contraste, tipografía legible y moderna (Google Fonts como *Outfit*, *Inter* o *Plus Jakarta Sans*).
+    - Textos: Alto contraste, tipografía legible y moderna (Google Fonts como _Outfit_, _Inter_ o _Plus Jakarta Sans_).
   - **Glassmorphism y Microanimaciones**:
     - Tarjetas con bordes sutiles iluminados, sombras suaves y fondos translúcidos (`backdrop-filter: blur(...)`).
     - Animación física y fluida del giro de la ruleta (curva de aceleración y desaceleración `cubic-bezier`).
@@ -64,6 +66,7 @@ El proyecto está configurado con **Node.js**, **React** y **Vite**.
     - Feedback sonoro mediante la API de Web Audio o efectos sutiles activables/desactivables.
 
 ### 3.2. Reglas de Código y Arquitectura
+
 1. **Tecnologías Core**:
    - React 18+ con Hooks (`useState`, `useReducer`, `useEffect`, `useCallback`, `useMemo`).
    - **Tailwind CSS v4** vía el plugin `@tailwindcss/vite` (configuración con `@import "tailwindcss";` y `@theme` en CSS; sin `tailwind.config.js`).

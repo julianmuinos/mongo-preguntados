@@ -42,7 +42,8 @@ export default function GameOverModal({
 
   const totalAsked = stats.totalQuestions || 0;
   const totalCorrect = stats.correctAnswers || 0;
-  const overallAccuracy = totalAsked > 0 ? Math.round((totalCorrect / totalAsked) * 100) : 0;
+  const overallAccuracy =
+    totalAsked > 0 ? Math.round((totalCorrect / totalAsked) * 100) : 0;
 
   // Identify weakest category with at least 1 question asked (RF-23)
   let weakestCategory = null;
@@ -98,23 +99,36 @@ export default function GameOverModal({
           </div>
         ) : (
           <div className="my-2 text-xs font-semibold text-slate-400">
-            Récord histórico: <span className="text-emerald-400 font-bold">{highScore} pts</span>
+            Récord histórico:{' '}
+            <span className="text-emerald-400 font-bold">{highScore} pts</span>
           </div>
         )}
 
         {/* High-level Metrics */}
         <div className="grid grid-cols-3 gap-2.5 my-4">
           <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-3">
-            <span className="block text-[11px] font-bold uppercase text-slate-400">Puntaje</span>
-            <span className="text-xl sm:text-2xl font-black text-emerald-400">{score}</span>
+            <span className="block text-[11px] font-bold uppercase text-slate-400">
+              Puntaje
+            </span>
+            <span className="text-xl sm:text-2xl font-black text-emerald-400">
+              {score}
+            </span>
           </div>
           <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-3">
-            <span className="block text-[11px] font-bold uppercase text-slate-400">Efectividad</span>
-            <span className="text-xl sm:text-2xl font-black text-white">{overallAccuracy}%</span>
+            <span className="block text-[11px] font-bold uppercase text-slate-400">
+              Efectividad
+            </span>
+            <span className="text-xl sm:text-2xl font-black text-white">
+              {overallAccuracy}%
+            </span>
           </div>
           <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-3">
-            <span className="block text-[11px] font-bold uppercase text-slate-400">Coronas</span>
-            <span className="text-xl sm:text-2xl font-black text-amber-400">{crowns.length}/6</span>
+            <span className="block text-[11px] font-bold uppercase text-slate-400">
+              Coronas
+            </span>
+            <span className="text-xl sm:text-2xl font-black text-amber-400">
+              {crowns.length}/6
+            </span>
           </div>
         </div>
 
@@ -126,14 +140,22 @@ export default function GameOverModal({
           <div className="space-y-2.5">
             {CATEGORIES.map((cat) => {
               const data = stats.byCategory[cat.id] || { asked: 0, correct: 0 };
-              const rate = data.asked > 0 ? Math.round((data.correct / data.asked) * 100) : 0;
+              const rate =
+                data.asked > 0
+                  ? Math.round((data.correct / data.asked) * 100)
+                  : 0;
               const hasCrown = crowns.includes(cat.id);
 
               return (
-                <div key={cat.id} className="flex items-center justify-between text-xs gap-2">
+                <div
+                  key={cat.id}
+                  className="flex items-center justify-between text-xs gap-2"
+                >
                   <div className="flex items-center gap-2 min-w-[140px]">
                     <span>{hasCrown ? '👑' : cat.emoji}</span>
-                    <span className="font-semibold text-slate-300 truncate">{cat.label}</span>
+                    <span className="font-semibold text-slate-300 truncate">
+                      {cat.label}
+                    </span>
                   </div>
                   <div className="flex-1 max-w-[120px] bg-slate-800 h-2 rounded-full overflow-hidden">
                     <div
@@ -161,8 +183,10 @@ export default function GameOverModal({
               <span>Recomendación de estudio:</span>
             </div>
             <p className="text-slate-300 leading-relaxed">
-              Te conviene repasar la categoría <strong className="text-white">{weakestCategory.label}</strong>{' '}
-              ({weakestCategory.sections} del PDF), donde tuviste un {weakestCategory.rate}% de aciertos.
+              Te conviene repasar la categoría{' '}
+              <strong className="text-white">{weakestCategory.label}</strong> (
+              {weakestCategory.sections} del PDF), donde tuviste un{' '}
+              {weakestCategory.rate}% de aciertos.
             </p>
           </div>
         )}

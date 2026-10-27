@@ -34,10 +34,16 @@ class SoundManager {
       const gain = this.ctx.createGain();
       osc.type = 'triangle';
       osc.frequency.setValueAtTime(450, this.ctx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(150, this.ctx.currentTime + 0.04);
+      osc.frequency.exponentialRampToValueAtTime(
+        150,
+        this.ctx.currentTime + 0.04
+      );
 
       gain.gain.setValueAtTime(0.08, this.ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.04);
+      gain.gain.exponentialRampToValueAtTime(
+        0.001,
+        this.ctx.currentTime + 0.04
+      );
 
       osc.connect(gain);
       gain.connect(this.ctx.destination);
@@ -138,7 +144,10 @@ class SoundManager {
       osc.type = 'sine';
       osc.frequency.setValueAtTime(880, this.ctx.currentTime);
       gain.gain.setValueAtTime(0.1, this.ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.08);
+      gain.gain.exponentialRampToValueAtTime(
+        0.001,
+        this.ctx.currentTime + 0.08
+      );
 
       osc.connect(gain);
       gain.connect(this.ctx.destination);

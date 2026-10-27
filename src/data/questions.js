@@ -5,12 +5,48 @@
  */
 
 export const CATEGORIES = [
-  { id: 'fundamentos', label: 'Fundamentos', emoji: '🟢', color: '#00ED64', sections: '§1–4' },
-  { id: 'mongoose', label: 'Node.js y Mongoose', emoji: '🔵', color: '#22D3EE', sections: '§5–9' },
-  { id: 'diseno', label: 'Diseño y consultas', emoji: '🟣', color: '#A855F7', sections: '§10–14' },
-  { id: 'especiales', label: 'Funciones especiales', emoji: '🟠', color: '#FB923C', sections: '§15–18' },
-  { id: 'produccion', label: 'Producción', emoji: '🔴', color: '#F43F5E', sections: '§19–21' },
-  { id: 'herramientas', label: 'Herramientas y extras', emoji: '🟡', color: '#FACC15', sections: '§22–23' },
+  {
+    id: 'fundamentos',
+    label: 'Fundamentos',
+    emoji: '🟢',
+    color: '#00ED64',
+    sections: '§1–4',
+  },
+  {
+    id: 'mongoose',
+    label: 'Node.js y Mongoose',
+    emoji: '🔵',
+    color: '#22D3EE',
+    sections: '§5–9',
+  },
+  {
+    id: 'diseno',
+    label: 'Diseño y consultas',
+    emoji: '🟣',
+    color: '#A855F7',
+    sections: '§10–14',
+  },
+  {
+    id: 'especiales',
+    label: 'Funciones especiales',
+    emoji: '🟠',
+    color: '#FB923C',
+    sections: '§15–18',
+  },
+  {
+    id: 'produccion',
+    label: 'Producción',
+    emoji: '🔴',
+    color: '#F43F5E',
+    sections: '§19–21',
+  },
+  {
+    id: 'herramientas',
+    label: 'Herramientas y extras',
+    emoji: '🟡',
+    color: '#FACC15',
+    sections: '§22–23',
+  },
 ];
 
 export const QUESTIONS = [
@@ -37,7 +73,12 @@ export const QUESTIONS = [
     category: 'fundamentos',
     difficulty: 'facil',
     question: 'En la analogía del archivero, ¿qué representa una colección?',
-    options: ['El archivero completo', 'Una ficha', 'Un cajón', 'La llave del archivero'],
+    options: [
+      'El archivero completo',
+      'Una ficha',
+      'Un cajón',
+      'La llave del archivero',
+    ],
     correctIndex: 2,
     explanation:
       'La base de datos es el archivero, la colección es un cajón y el documento es una ficha dentro de ese cajón.',
@@ -60,7 +101,8 @@ export const QUESTIONS = [
     id: 'fund-04',
     category: 'fundamentos',
     difficulty: 'facil',
-    question: '¿A qué equivale, de forma aproximada, una colección en una base relacional?',
+    question:
+      '¿A qué equivale, de forma aproximada, una colección en una base relacional?',
     options: ['A una fila', 'A una columna', 'A un JOIN', 'A una tabla'],
     correctIndex: 3,
     explanation:
@@ -84,8 +126,14 @@ export const QUESTIONS = [
     id: 'fund-06',
     category: 'fundamentos',
     difficulty: 'medio',
-    question: 'Dado el documento de abajo, ¿qué devuelve la notación de puntos "contribs.1"?',
-    options: ['"Turing machine"', '"Turing test"', 'Nada: las posiciones empiezan en 1', '"Turing"'],
+    question:
+      'Dado el documento de abajo, ¿qué devuelve la notación de puntos "contribs.1"?',
+    options: [
+      '"Turing machine"',
+      '"Turing test"',
+      'Nada: las posiciones empiezan en 1',
+      '"Turing"',
+    ],
     correctIndex: 1,
     explanation:
       'Las posiciones de un arreglo empiezan en 0: "contribs.0" es "Turing machine" y "contribs.1" es "Turing test".',
@@ -117,7 +165,8 @@ export const QUESTIONS = [
     id: 'fund-08',
     category: 'fundamentos',
     difficulty: 'medio',
-    question: '¿Qué servicio ofrece conjuntos de datos de muestra (películas, restaurantes…) listos para practicar?',
+    question:
+      '¿Qué servicio ofrece conjuntos de datos de muestra (películas, restaurantes…) listos para practicar?',
     options: ['MongoDB Atlas', 'Mongoose', 'GridFS', 'Change Streams'],
     correctIndex: 0,
     explanation:
@@ -129,7 +178,8 @@ export const QUESTIONS = [
     id: 'fund-09',
     category: 'fundamentos',
     difficulty: 'avanzado',
-    question: '¿Cuál de estas afirmaciones sobre el orden de los campos de un documento es correcta?',
+    question:
+      '¿Cuál de estas afirmaciones sobre el orden de los campos de un documento es correcta?',
     options: [
       'El orden de los campos importa al comparar documentos enteros',
       'MongoDB reordena los campos alfabéticamente al guardar',
@@ -187,7 +237,8 @@ export const QUESTIONS = [
     id: 'mong-02',
     category: 'mongoose',
     difficulty: 'facil',
-    question: '¿Dónde se debe guardar la cadena de conexión (connection string) de MongoDB?',
+    question:
+      '¿Dónde se debe guardar la cadena de conexión (connection string) de MongoDB?',
     options: [
       'Escrita directamente en el código fuente',
       'En el README del repositorio',
@@ -204,8 +255,14 @@ export const QUESTIONS = [
     id: 'mong-03',
     category: 'mongoose',
     difficulty: 'facil',
-    question: '¿Qué método de Mongoose equivale a insertOne() de la consola para crear un documento?',
-    options: ['Producto.create()', 'Producto.find()', 'Producto.findById()', 'Producto.lean()'],
+    question:
+      '¿Qué método de Mongoose equivale a insertOne() de la consola para crear un documento?',
+    options: [
+      'Producto.create()',
+      'Producto.find()',
+      'Producto.findById()',
+      'Producto.lean()',
+    ],
     correctIndex: 0,
     explanation:
       'En Mongoose se crea con await Producto.create({...}) (o insertMany([...]) para lotes), equivalente a db.productos.insertOne() en mongosh.',
@@ -228,7 +285,8 @@ export const QUESTIONS = [
     id: 'mong-05',
     category: 'mongoose',
     difficulty: 'medio',
-    question: 'Entre los 3 pilares de Mongoose (Schema, Model, Document), ¿qué es el Model?',
+    question:
+      'Entre los 3 pilares de Mongoose (Schema, Model, Document), ¿qué es el Model?',
     options: [
       'El plano que define campos, tipos y validaciones',
       'La "fábrica": un constructor compilado a partir del Schema que provee métodos para consultar la colección',
@@ -245,7 +303,8 @@ export const QUESTIONS = [
     id: 'mong-06',
     category: 'mongoose',
     difficulty: 'medio',
-    question: "Con mongoose.model('Producto', productoSchema), ¿a qué colección apunta el modelo?",
+    question:
+      "Con mongoose.model('Producto', productoSchema), ¿a qué colección apunta el modelo?",
     options: ['Producto', 'producto', 'productos', 'Productos'],
     correctIndex: 2,
     explanation:
@@ -257,7 +316,8 @@ export const QUESTIONS = [
     id: 'mong-07',
     category: 'mongoose',
     difficulty: 'medio',
-    question: '¿Qué opción de un SchemaType oculta un campo en las consultas por defecto (ideal para contraseñas)?',
+    question:
+      '¿Qué opción de un SchemaType oculta un campo en las consultas por defecto (ideal para contraseñas)?',
     options: ['select: false', 'immutable: true', 'trim: true', 'enum'],
     correctIndex: 0,
     explanation:
@@ -269,7 +329,8 @@ export const QUESTIONS = [
     id: 'mong-08',
     category: 'mongoose',
     difficulty: 'medio',
-    question: '¿Qué operador de actualización suma o resta un número a un campo?',
+    question:
+      '¿Qué operador de actualización suma o resta un número a un campo?',
     options: ['$set', '$push', '$inc', '$gte'],
     correctIndex: 2,
     explanation:
@@ -281,7 +342,8 @@ export const QUESTIONS = [
     id: 'mong-09',
     category: 'mongoose',
     difficulty: 'avanzado',
-    question: '¿Qué opciones conviene pasar SIEMPRE a findByIdAndUpdate() en Mongoose?',
+    question:
+      '¿Qué opciones conviene pasar SIEMPRE a findByIdAndUpdate() en Mongoose?',
     options: [
       '{ lean: true, select: false }',
       '{ strict: false }',
@@ -300,7 +362,8 @@ export const QUESTIONS = [
     id: 'mong-10',
     category: 'mongoose',
     difficulty: 'avanzado',
-    question: 'Con el Schema de abajo, ¿qué pasa al hacer await producto.save() con precio: -10?',
+    question:
+      'Con el Schema de abajo, ¿qué pasa al hacer await producto.save() con precio: -10?',
     options: [
       'Se guarda y Mongoose corrige el precio a 0',
       'Mongoose frena la operación con un error de validación antes de tocar la base de datos',
@@ -440,7 +503,8 @@ export const QUESTIONS = [
     id: 'dis-08',
     category: 'diseno',
     difficulty: 'medio',
-    question: '¿Qué ventaja tiene agregar .lean() a una consulta de solo lectura?',
+    question:
+      '¿Qué ventaja tiene agregar .lean() a una consulta de solo lectura?',
     options: [
       'Valida los documentos antes de devolverlos',
       'Devuelve objetos planos de JavaScript (POJOs), reduciendo memoria y tiempo de respuesta',
@@ -457,7 +521,8 @@ export const QUESTIONS = [
     id: 'dis-09',
     category: 'diseno',
     difficulty: 'avanzado',
-    question: '¿En qué momento deben declararse los hooks schema.pre(...) de Mongoose?',
+    question:
+      '¿En qué momento deben declararse los hooks schema.pre(...) de Mongoose?',
     options: [
       'Después de compilar el modelo con mongoose.model()',
       'Dentro de la función mongoose.connect()',
@@ -478,7 +543,8 @@ export const QUESTIONS = [
     id: 'dis-10',
     category: 'diseno',
     difficulty: 'avanzado',
-    question: 'En Model.aggregate(), querés filtrar con $match por un _id que tenés como string. ¿Qué debés hacer?',
+    question:
+      'En Model.aggregate(), querés filtrar con $match por un _id que tenés como string. ¿Qué debés hacer?',
     options: [
       'Nada: Mongoose convierte el string automáticamente como en find()',
       'Agregar .lean() al final del pipeline',
@@ -497,7 +563,8 @@ export const QUESTIONS = [
     id: 'esp-01',
     category: 'especiales',
     difficulty: 'facil',
-    question: '¿Para qué tipo de datos están pensadas las colecciones de series de tiempo (Time Series)?',
+    question:
+      '¿Para qué tipo de datos están pensadas las colecciones de series de tiempo (Time Series)?',
     options: [
       'Contraseñas y datos sensibles',
       'Lecturas de sensores IoT, métricas de servidores o cotizaciones financieras',
@@ -565,7 +632,8 @@ export const QUESTIONS = [
     id: 'esp-05',
     category: 'especiales',
     difficulty: 'medio',
-    question: '¿Por qué en MongoDB muchas veces NO hace falta usar transacciones?',
+    question:
+      '¿Por qué en MongoDB muchas veces NO hace falta usar transacciones?',
     options: [
       'Porque las operaciones sobre un único documento (incluidos sus subdocumentos) ya son atómicas',
       'Porque MongoDB no admite transacciones',
@@ -599,8 +667,14 @@ export const QUESTIONS = [
     id: 'esp-07',
     category: 'especiales',
     difficulty: 'medio',
-    question: '¿Qué método de un Modelo de Mongoose permite escuchar cambios en tiempo real?',
-    options: ['Model.lean()', 'Model.populate()', 'Model.aggregate()', 'Model.watch()'],
+    question:
+      '¿Qué método de un Modelo de Mongoose permite escuchar cambios en tiempo real?',
+    options: [
+      'Model.lean()',
+      'Model.populate()',
+      'Model.aggregate()',
+      'Model.watch()',
+    ],
     correctIndex: 3,
     explanation:
       'Model.watch() abre un Change Stream desde un Modelo de Mongoose.',
@@ -628,7 +702,8 @@ export const QUESTIONS = [
     id: 'esp-09',
     category: 'especiales',
     difficulty: 'avanzado',
-    question: '¿Qué particularidad tienen los documentos de una colección Time Series respecto del _id?',
+    question:
+      '¿Qué particularidad tienen los documentos de una colección Time Series respecto del _id?',
     options: [
       'No requieren un índice único sobre _id',
       'Su _id debe ser siempre una fecha',
@@ -732,7 +807,8 @@ export const QUESTIONS = [
     id: 'prod-05',
     category: 'produccion',
     difficulty: 'medio',
-    question: '¿Qué utiliza el sharding para decidir cómo repartir los datos entre servidores?',
+    question:
+      '¿Qué utiliza el sharding para decidir cómo repartir los datos entre servidores?',
     options: [
       'El ObjectId de cada documento, siempre',
       'El índice automático de _id',
@@ -749,7 +825,8 @@ export const QUESTIONS = [
     id: 'prod-06',
     category: 'produccion',
     difficulty: 'medio',
-    question: 'El volumen de datos creció tanto que un solo servidor no alcanza. ¿Qué técnica corresponde?',
+    question:
+      'El volumen de datos creció tanto que un solo servidor no alcanza. ¿Qué técnica corresponde?',
     options: ['Replicación', 'Sharding', 'Time Series', 'Transacciones'],
     correctIndex: 1,
     explanation:
@@ -761,7 +838,8 @@ export const QUESTIONS = [
     id: 'prod-07',
     category: 'produccion',
     difficulty: 'medio',
-    question: 'Según la lista de comprobación, ¿cómo se logran "consultas livianas"?',
+    question:
+      'Según la lista de comprobación, ¿cómo se logran "consultas livianas"?',
     options: [
       'Usando siempre populate() en todas las consultas',
       'Desactivando los índices',
@@ -778,7 +856,8 @@ export const QUESTIONS = [
     id: 'prod-08',
     category: 'produccion',
     difficulty: 'medio',
-    question: 'Antes de ir a producción, ¿qué deben tener los campos usados frecuentemente en find() y sort()?',
+    question:
+      'Antes de ir a producción, ¿qué deben tener los campos usados frecuentemente en find() y sort()?',
     options: [
       'Su índice correspondiente',
       'La opción select: false',
@@ -795,7 +874,8 @@ export const QUESTIONS = [
     id: 'prod-09',
     category: 'produccion',
     difficulty: 'avanzado',
-    question: 'Según la checklist, ¿qué hay que activar en cada findByIdAndUpdate o updateOne?',
+    question:
+      'Según la checklist, ¿qué hay que activar en cada findByIdAndUpdate o updateOne?',
     options: [
       'lean: true',
       'runValidators: true',
@@ -832,7 +912,8 @@ export const QUESTIONS = [
     id: 'herr-01',
     category: 'herramientas',
     difficulty: 'facil',
-    question: '¿Qué herramienta es una aplicación gráfica (GUI) para explorar y editar datos sin escribir código?',
+    question:
+      '¿Qué herramienta es una aplicación gráfica (GUI) para explorar y editar datos sin escribir código?',
     options: ['mongosh', 'Charts', 'MongoDB Compass', 'Atlas Search'],
     correctIndex: 2,
     explanation:
@@ -844,8 +925,14 @@ export const QUESTIONS = [
     id: 'herr-02',
     category: 'herramientas',
     difficulty: 'facil',
-    question: '¿Cuál es el servicio oficial de MongoDB en la nube, que permite crear un clúster gratuito?',
-    options: ['MongoDB Atlas', 'Community Edition', 'Mongoose', 'MongoDB University'],
+    question:
+      '¿Cuál es el servicio oficial de MongoDB en la nube, que permite crear un clúster gratuito?',
+    options: [
+      'MongoDB Atlas',
+      'Community Edition',
+      'Mongoose',
+      'MongoDB University',
+    ],
     correctIndex: 0,
     explanation:
       'MongoDB Atlas es el servicio gestionado en la nube; permite crear un clúster gratis en pocos minutos.',
@@ -873,8 +960,14 @@ export const QUESTIONS = [
     id: 'herr-04',
     category: 'herramientas',
     difficulty: 'facil',
-    question: '¿Cuál es la versión gratuita de MongoDB para instalar localmente en tu computadora?',
-    options: ['MongoDB Atlas', 'MongoDB Charts', 'MongoDB Compass', 'Community Edition'],
+    question:
+      '¿Cuál es la versión gratuita de MongoDB para instalar localmente en tu computadora?',
+    options: [
+      'MongoDB Atlas',
+      'MongoDB Charts',
+      'MongoDB Compass',
+      'Community Edition',
+    ],
     correctIndex: 3,
     explanation:
       'Community Edition es la versión gratuita para instalar MongoDB de forma local.',
@@ -936,7 +1029,8 @@ export const QUESTIONS = [
     id: 'herr-08',
     category: 'herramientas',
     difficulty: 'medio',
-    question: '¿Qué temas cubren las guías oficiales de Mongoose mencionadas en el documento?',
+    question:
+      '¿Qué temas cubren las guías oficiales de Mongoose mencionadas en el documento?',
     options: [
       'Replica sets y sharding',
       'Instalación de Community Edition',
@@ -953,7 +1047,8 @@ export const QUESTIONS = [
     id: 'herr-09',
     category: 'herramientas',
     difficulty: 'avanzado',
-    question: 'Según la ruta de aprendizaje, ¿qué representa "el 80% del trabajo diario en el código"?',
+    question:
+      'Según la ruta de aprendizaje, ¿qué representa "el 80% del trabajo diario en el código"?',
     options: [
       'Configurar sharding y replicación',
       'Escribir pipelines de agregación',

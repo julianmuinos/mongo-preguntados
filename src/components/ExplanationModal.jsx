@@ -49,31 +49,39 @@ export default function ExplanationModal({
           {isCorrect
             ? '¡Respuesta Correcta!'
             : isTimeout
-            ? '¡Se agotó el tiempo!'
-            : '¡Respuesta Incorrecta!'}
+              ? '¡Se agotó el tiempo!'
+              : '¡Respuesta Incorrecta!'}
         </h3>
 
         {/* Crown Notification */}
         {wonCrown && (
           <div className="my-3 px-4 py-2.5 rounded-2xl bg-amber-500/20 border border-amber-500/40 text-amber-300 font-extrabold text-sm flex items-center justify-center gap-2 glow-amber animate-bounce">
             <span>👑</span>
-            <span>¡Conseguiste la Corona de {category.label}! (+1 Vida recuperada)</span>
+            <span>
+              ¡Conseguiste la Corona de {category.label}! (+1 Vida recuperada)
+            </span>
           </div>
         )}
 
         {/* Points or Lives result */}
         <p className="text-xs font-bold uppercase tracking-wider mt-1 mb-4 text-slate-400">
           {isCorrect ? (
-            <span className="text-emerald-400 font-black text-sm">+{pointsEarned} puntos</span>
+            <span className="text-emerald-400 font-black text-sm">
+              +{pointsEarned} puntos
+            </span>
           ) : (
-            <span className="text-rose-400 font-black text-sm">-1 vida restante</span>
+            <span className="text-rose-400 font-black text-sm">
+              -1 vida restante
+            </span>
           )}
         </p>
 
         {/* Explanation Card */}
         <div className="text-left bg-slate-900/90 border border-slate-800 rounded-2xl p-4 my-4 space-y-2">
           <div className="flex items-center justify-between gap-2 border-b border-slate-800 pb-2">
-            <span className="text-xs font-bold text-slate-400">Fundamento Teórico:</span>
+            <span className="text-xs font-bold text-slate-400">
+              Fundamento Teórico:
+            </span>
             <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800 text-emerald-300 border border-slate-700">
               {question.source}
             </span>
@@ -86,7 +94,9 @@ export default function ExplanationModal({
           {/* Correct answer reminder if answered incorrectly */}
           {!isCorrect && (
             <div className="pt-2 border-t border-slate-800/60 text-xs">
-              <span className="text-slate-400 font-semibold">Respuesta correcta: </span>
+              <span className="text-slate-400 font-semibold">
+                Respuesta correcta:{' '}
+              </span>
               <span className="text-emerald-400 font-bold">
                 {question.options[question.correctIndex]}
               </span>

@@ -1,9 +1,14 @@
 import React from 'react';
 import { CATEGORIES } from '../data/questions';
 
-export default function CrownPickerModal({ availableCrownIds, onSelectCategory }) {
+export default function CrownPickerModal({
+  availableCrownIds,
+  onSelectCategory,
+}) {
   // Filter categories that player doesn't have yet
-  const eligibleCategories = CATEGORIES.filter((c) => availableCrownIds.includes(c.id));
+  const eligibleCategories = CATEGORIES.filter((c) =>
+    availableCrownIds.includes(c.id)
+  );
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fadeIn">

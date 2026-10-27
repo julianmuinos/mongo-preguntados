@@ -27,7 +27,9 @@ export default function RulesModal({ onClose }) {
               🎯 Objetivo del Juego
             </h4>
             <p className="leading-relaxed">
-              Conseguir las <strong>6 coronas temáticas</strong> respondiendo correctamente preguntas basadas en el documento oficial de MongoDB y Mongoose.
+              Conseguir las <strong>6 coronas temáticas</strong> respondiendo
+              correctamente preguntas basadas en el documento oficial de MongoDB
+              y Mongoose.
             </p>
           </div>
 
@@ -36,7 +38,10 @@ export default function RulesModal({ onClose }) {
               👑 ¿Cómo ganar una corona?
             </h4>
             <p className="leading-relaxed">
-              Cada acierto consecutivo aumenta tu racha. Al llegar a <strong>3 aciertos seguidos</strong> podés elegir jugar un desafío de corona en una categoría pendiente. Si acertás la pregunta, ¡te llevás la corona y recuperás 1 vida!
+              Cada acierto consecutivo aumenta tu racha. Al llegar a{' '}
+              <strong>3 aciertos seguidos</strong> podés elegir jugar un desafío
+              de corona en una categoría pendiente. Si acertás la pregunta, ¡te
+              llevás la corona y recuperás 1 vida!
             </p>
           </div>
 
@@ -45,7 +50,9 @@ export default function RulesModal({ onClose }) {
               ❤️ Vidas y Tiempo
             </h4>
             <p className="leading-relaxed">
-              Empezás con <strong>3 vidas</strong>. Cada fallo o tiempo agotado descuenta 1 vida y reinicia tu racha. Tenés <strong>20 segundos</strong> por pregunta.
+              Empezás con <strong>3 vidas</strong>. Cada fallo o tiempo agotado
+              descuenta 1 vida y reinicia tu racha. Tenés{' '}
+              <strong>20 segundos</strong> por pregunta.
             </p>
           </div>
 
@@ -54,9 +61,16 @@ export default function RulesModal({ onClose }) {
               ⚡ Comodines (1 uso por partida)
             </h4>
             <ul className="list-disc list-inside space-y-1 text-slate-300 pl-1">
-              <li><strong>50/50:</strong> Descarta 2 opciones incorrectas.</li>
-              <li><strong>+15s:</strong> Suma 15 segundos extra al temporizador.</li>
-              <li><strong>Pasar:</strong> Descarta la pregunta sin penalización y vuelve a la ruleta.</li>
+              <li>
+                <strong>50/50:</strong> Descarta 2 opciones incorrectas.
+              </li>
+              <li>
+                <strong>+15s:</strong> Suma 15 segundos extra al temporizador.
+              </li>
+              <li>
+                <strong>Pasar:</strong> Descarta la pregunta sin penalización y
+                vuelve a la ruleta.
+              </li>
             </ul>
           </div>
 
@@ -66,11 +80,18 @@ export default function RulesModal({ onClose }) {
             </h4>
             <div className="grid grid-cols-2 gap-2 text-xs">
               {CATEGORIES.map((cat) => (
-                <div key={cat.id} className="p-2 rounded-xl bg-slate-900 border border-slate-800 flex items-center gap-2">
+                <div
+                  key={cat.id}
+                  className="p-2 rounded-xl bg-slate-900 border border-slate-800 flex items-center gap-2"
+                >
                   <span>{cat.emoji}</span>
                   <div>
-                    <span className="font-bold text-white block">{cat.label}</span>
-                    <span className="text-[10px] text-slate-400">{cat.sections}</span>
+                    <span className="font-bold text-white block">
+                      {cat.label}
+                    </span>
+                    <span className="text-[10px] text-slate-400">
+                      {cat.sections}
+                    </span>
                   </div>
                 </div>
               ))}
@@ -82,9 +103,15 @@ export default function RulesModal({ onClose }) {
               ⌨️ Atajos de Teclado
             </h4>
             <div className="flex flex-wrap gap-2 text-[11px] font-mono">
-              <span className="px-2 py-1 bg-slate-900 rounded border border-slate-800 text-slate-300">Espacio: Girar</span>
-              <span className="px-2 py-1 bg-slate-900 rounded border border-slate-800 text-slate-300">1, 2, 3, 4: Responder</span>
-              <span className="px-2 py-1 bg-slate-900 rounded border border-slate-800 text-slate-300">Enter: Continuar</span>
+              <span className="px-2 py-1 bg-slate-900 rounded border border-slate-800 text-slate-300">
+                Espacio: Girar
+              </span>
+              <span className="px-2 py-1 bg-slate-900 rounded border border-slate-800 text-slate-300">
+                1, 2, 3, 4: Responder
+              </span>
+              <span className="px-2 py-1 bg-slate-900 rounded border border-slate-800 text-slate-300">
+                Enter: Continuar
+              </span>
             </div>
           </div>
         </div>
